@@ -19,7 +19,7 @@ This repository contains a handful of plugins that you can use with [Volca Sampl
 
 ## What is a Volca Sampler plugin?
 
-A Volca Sampler plugin is a javascript file that contains a function called `samplePlugin`, that accepts an [`AudioBuffer`](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer) and returns an AudioBuffer (either the same buffer modified, or a new one). The simplest possible plugin, which acts as a passthrough for the input, is this one:
+A Volca Sampler plugin is a JavaScript file that contains a function called `samplePlugin`, that accepts an [`AudioBuffer`](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer) and returns an AudioBuffer (either the same buffer modified, or a new one). The simplest possible plugin, which acts as a passthrough for the input, is this one:
 
 ```js
 // passthrough-plugin.js
