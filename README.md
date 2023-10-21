@@ -179,7 +179,7 @@ The simplest solution to this problem is to make sure Normalization is turned on
 
 However, in some cases you might find the decrease in volume introduced by Normalization to be too dramatic, and you would prefer to just tame the loud sample peaks to be closer to the volume of the rest of your sample.
 
-One solution is to use a [https://en.wikipedia.org/wiki/Limiter](limiter), an extreme type of compression whose job is to just turn down the volume on the loudest stuff without affecting anything else.
+One solution is to use a [limiter](https://en.wikipedia.org/wiki/Limiter), an extreme type of compression whose job is to just turn down the volume on the loudest stuff without affecting anything else.
 
 If you take a look at the source code, you'll see it's almost identical to `lowpass-filter-plugin.js`. What is different is the parameters (we have only one, called "Gain reduction"), and that instead of a BiquadFilterNode, we use a `DynamicsCompressorNode`:
 
