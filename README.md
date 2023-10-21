@@ -2,6 +2,21 @@
 
 This repository contains a handful of plugins that you can use with [Volca Sampler](https://github.com/benwiley4000/volca-sampler). They're also meant to serve as examples to help you write your own plugins. Each of the included plugins is briefly explained below.
 
+## Table of contents
+
+ * [What is a Volca Sampler plugin?](#what-is-a-volca-sampler-plugin)
+ * [Getting started with plugins](#getting-started-with-plugins)
+    + [gain-plugin.js](#gain-pluginjs)
+ * [Leveling up - using the Web Audio API](#leveling-up---using-the-web-audio-api)
+    + [lowpass-filter-plugin.js](#lowpass-filter-pluginjs)
+    + [limiter-plugin.js](#limiter-pluginjs)
+ * [More complex audio processing](#more-complex-audio-processing)
+    + [delay-plugin.js](#delay-pluginjs)
+ * [Integrating third-party code in plugins](#integrating-third-party-code-in-plugins)
+    + [phaser-plugin.js](#phaser-pluginjs)
+    + [timestretch-plugin.js](#timestretch-pluginjs)
+       - [Finding and embedding the third-party source code](#finding-and-embedding-the-third-party-source-code)
+
 ## What is a Volca Sampler plugin?
 
 A Volca Sampler plugin is a javascript file that contains a function called `samplePlugin`, that accepts an [`AudioBuffer`](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer) and returns an AudioBuffer (either the same buffer modified, or a new one). The simplest possible plugin, which acts as a passthrough for the input, is this one:
@@ -232,7 +247,7 @@ const audioContext = new OfflineAudioContext({
 ```
 
 
-## Integrating third party code in plugins
+## Integrating third-party code in plugins
 
 The JavaScript open source ecosystem is massive, and includes a good number of people building free audio effects code that you can incorporate in your own own code.
 
