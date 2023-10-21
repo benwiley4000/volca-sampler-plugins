@@ -261,7 +261,7 @@ Some of this code uses the [`AudioNode`](https://developer.mozilla.org/en-US/doc
 
 As an example, we have a Phaser plugin which accepts rate and depth parameters. It looks a lot like the Low-pass filter and Limiter plugins, but instead of including a stock Web Audio node, it uses a Phaser node from Tuna.js.
 
-At the bottom of my plugin file is the third-party Tuna.js code. In order to embed Tuna.js in my plugin code, we had to go find a build of it that will run directly in a web browser - which isn't always the easist thing to do these days! Fortunately in the case of Tuna.js, there is a [useable copy directly in the GitHub repository](https://github.com/Theodeus/tuna/blob/master/tuna-min.js) (the minified version takes a bit less space on disk).
+At the bottom of my plugin file is the third-party Tuna.js code. In order to embed Tuna.js in my plugin code, we had to go find a build of it that will run directly in a web browser - which isn't always the easiest thing to do these days! Fortunately in the case of Tuna.js, there is a [useable copy directly in the GitHub repository](https://github.com/Theodeus/tuna/blob/master/tuna-min.js) (the minified version takes a bit less space on disk).
 
 In other cases, such as the next one, finding an embeddable copy of the code is a bit more complicated, but we'll see how it's done.
 
@@ -283,7 +283,7 @@ To find a distributable copy of SoundTouchJS, the first step to find the name of
 
 With that information in hand, one way to get the distributable code is to download it with the `npm` command-line tool, but the easier way is to use [unpkg](https://unpkg.com/), a web service which allows you to browse the contents of npm packages without downloading them.
 
-The way it works is that you visit `https://unpkg.com/[name of package]/` in a web browser, so for SoundTouchJS, that's [https://unpkg.com/soundtouchjs/](https://unpkg.com/soundtouchjs/) (the `/` at the end is important). Once you're there, you can usually see a folder called "dist/" or "build/", and inside of there, a code file that normally can run directly in a web browser.
+The way it works is that you visit `https://unpkg.com/[name of package]/` in a web browser, so for SoundTouchJS, that's [https://unpkg.com/soundtouchjs/](https://unpkg.com/soundtouchjs/) (the `/` at the end is important). Once you're there, you can usually see a folder called "dist/" or "build/", and inside of there, a JavaScript file that normally can run directly in a web browser.
 
 For SoundTouchJS, [this is that file](https://unpkg.com/browse/soundtouchjs@0.1.30/dist/soundtouch.js). But there is a problem, which is that the line at the very end, starting with `export { AbstractFifoSamplePipe...`, will not run in the context of the Volca Sampler plugin iframe. Long story, but for the uninitiated, this is code related to JavaScript modules, and Volca Sampler plugins are not JavaScript modules.
 
