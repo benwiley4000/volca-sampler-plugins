@@ -29,7 +29,7 @@ function samplePlugin(audioBuffer) {
 }
 ```
 
-Plugins run in a secure iframe context that has access to useful browser APIs like the Web Audio API, but doesn't have access to any of the data used by Volca Sampler, except for copies of whatever data Volca Sampler chooses to send it. This means you can share your plugin with other volca sample owners, who can confidentally try out your plugin without necessarily understanding everything it's doing.
+Plugins run in a secure iframe context that has access to useful browser APIs like the Web Audio API, but doesn't have network access, nor access to any of the data used by Volca Sampler, except for copies of whatever data Volca Sampler chooses to send it. This means you can share your plugin with other volca sample owners, who can confidentally try out your plugin without necessarily understanding everything it's doing.
 
 Read on to see some examples of plugins you can write.
 
