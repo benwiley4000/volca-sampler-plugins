@@ -8,12 +8,14 @@
  */
 
 samplePlugin.params = {
-  "Cutoff frequency": {
+  cutoffFrequency: {
+    label: "Cutoff frequency",
     value: 1000,
     min: 30,
     max: 20000,
   },
-  Q: {
+  q: {
+    label: "Q",
     value: 3,
     min: 0,
     max: 25,
@@ -24,8 +26,8 @@ samplePlugin.params = {
  * @param {AudioBuffer} audioBuffer
  */
 function samplePlugin(audioBuffer) {
-  const frequency = samplePlugin.params["Cutoff frequency"].value;
-  const q = samplePlugin.params.Q.value;
+  const frequency = samplePlugin.params.cutoffFrequency.value;
+  const q = samplePlugin.params.q.value;
 
   const { numberOfChannels, sampleRate, length } = audioBuffer;
 

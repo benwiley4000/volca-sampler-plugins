@@ -45,7 +45,8 @@ The first thing to notice in the code, which we're seeing for the first time, is
 
 ```js
 samplePlugin.params = {
-  Gain: {
+  gain: {
+    label: "Gain",
     value: 1,
     min: 0.1,
     max: 5,
@@ -53,13 +54,13 @@ samplePlugin.params = {
 };
 ```
 
-This tells Volca Sampler which plugin parameters should be exposed to the user in the app UI. In this case we have one plugin parameter, called `Gain`, which has a minimum value of `0.1`, a maximum value of `5`, and a value which is `1` by default (meaning no change in volume). This `value` will be overridden by Volca Sampler with whatever value the user has chosen.
+This tells Volca Sampler which plugin parameters should be exposed to the user in the app UI. In this case we have one plugin parameter, called `gain`, which has a minimum value of `0.1`, a maximum value of `5`, and a value which is `1` by default (meaning no change in volume). This `value` will be overridden by Volca Sampler with whatever value the user has chosen.
 
 Now let's take a look at the plugin itself:
 
 ```js
 function samplePlugin(audioBuffer) {
-  const gain = samplePlugin.params.Gain.value;
+  const gain = samplePlugin.params.gain.value;
   if (gain === 1) {
     // same as if bypassed
     return audioBuffer;
@@ -74,10 +75,10 @@ function samplePlugin(audioBuffer) {
 
 We'll go over each part of this plugin in detail.
 
-You can see that our plugin is first reading the `value` from its `Gain` parameter and assigning it to a variable called `gain`:
+You can see that our plugin is first reading the `value` from its `gain` parameter and assigning it to a new variable (to save some typing later on):
 
 ```js
-const gain = samplePlugin.params.Gain.value;
+const gain = samplePlugin.params.gain.value;
 ```
 
 After that, we make sure we actually need to perform any work, since a value of `1` won't change anything. In that case we just return the Audio Buffer unchanged. (This step isn't required for every plugin, but might save some processing time on a large multiple transfer to the volca sample.): 
@@ -123,7 +124,7 @@ The Web Audio API is normally used to process live audio playback in the browser
 
 This next plugin implements a basic low-pass filter with adjustable cutoff frequency and Q (resonance). For this we're using a feature of the Web Audio API called a [`BiquadFilterNode`](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode).
 
-If you look at the source code, the beginning is familiar - we declare our `samplePlugin.params`, then we read these parameters at the beginning of our plugin code. (You might notice that our parameter names are capitalized and have spaces in them, which is sort of unusual for variable names, but it's useful for us because we'll use these names in the app UI.)
+If you look at the source code, the beginning is familiar - we declare our `samplePlugin.params`, then we read these parameters at the beginning of our plugin code.
 
 After that, we've got something new - we're creating an OfflineAudioContext whose internal AudioBuffer should match the size of our input AudioBuffer:
 
@@ -144,7 +145,7 @@ const bufferSource = audioContext.createBufferSource();
 bufferSource.buffer = audioBuffer;
 ```
 
-And then we create a new BiquadFilterNode, using the parameters we passed earlier:
+And then we create a new BiquadFilterNode, using the parameters we read earlier:
 
 ```js
 const biquadFilter = audioContext.createBiquadFilter();
@@ -181,7 +182,7 @@ However, in some cases you might find the decrease in volume introduced by Norma
 
 One solution is to use a [limiter](https://en.wikipedia.org/wiki/Limiter), an extreme type of compression whose job is to just turn down the volume on the loudest stuff without affecting anything else.
 
-If you take a look at the source code, you'll see it's almost identical to `lowpass-filter-plugin.js`. What is different is the parameters (we have only one, called "Gain reduction"), and that instead of a BiquadFilterNode, we use a [`DynamicsCompressorNode`](https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode):
+If you take a look at the source code, you'll see it's almost identical to `lowpass-filter-plugin.js`. What is different is the parameters (we have only one, called `gainReduction`), and that instead of a BiquadFilterNode, we use a [`DynamicsCompressorNode`](https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode):
 
 ```js
 const limiter = audioContext.createDynamicsCompressor();
@@ -236,7 +237,7 @@ feedbackGain.connect(delay);
 
 You might be thinking this looks like a loop that could last forever, and you're right! The feedback will technically last for as long as the AudioBuffer we're writing to, although at some point you won't hear it anymore (as long as the feedback level is below 1).
 
-And you'll notice near the top of the plugin, the code to create our OfflineAudioContext is a bit different. We have a parameter called "Tail time" that allows our output AudioBuffer to have a longer duration than our input. This allows us to hear the decaying delay effect, rather than cutting it off at the moment the original sample ended:
+And you'll notice near the top of the plugin, the code to create our OfflineAudioContext is a bit different. We have a parameter called `tailTime` that allows our output AudioBuffer to have a longer duration than our input. This allows us to hear the decaying delay effect, rather than cutting it off at the moment the original sample ended:
 
 ```js
 const audioContext = new OfflineAudioContext({
@@ -259,7 +260,7 @@ Some of this code uses the [`AudioNode`](https://developer.mozilla.org/en-US/doc
 
 [Tuna.js](https://github.com/Theodeus/tuna) is a JavaScript library that includes more than a dozen configurable AudioNode effects, including overdrive, reverb, compression, tremolo, a Moog-style filter (in case you don't like the sound of the stock Web Audio filter), and more.
 
-As an example, we have a Phaser plugin which accepts rate and depth parameters. It looks a lot like the Low-pass filter and Limiter plugins, but instead of including a stock Web Audio node, it uses a Phaser node from Tuna.js.
+As an example, we have a Phaser plugin which accepts `rate` and `depth` parameters. It looks a lot like the Low-pass filter and Limiter plugins, but instead of including a stock Web Audio node, it uses a Phaser node from Tuna.js.
 
 At the bottom of my plugin file is the third-party Tuna.js code. In order to embed Tuna.js in my plugin code, we had to go find a build of it that will run directly in a web browser - which isn't always the easiest thing to do these days! Fortunately in the case of Tuna.js, there is a [useable copy directly in the GitHub repository](https://github.com/Theodeus/tuna/blob/master/tuna-min.js) (the minified version takes a bit less space on disk).
 
@@ -273,7 +274,7 @@ One audio effect that really isn't simple to implement using just the tools give
 
 Lucky for us, there's a library called [SoundTouchJS](https://github.com/cutterbl/SoundTouchJS) (itself based on the [SoundTouch C++ library](https://www.surina.net/soundtouch/)) which implements time stretching in JavaScript, and which is the basis for our Timestretch plugin.
 
-The approach is a bit different than previous plugins, since although SoundTouchJS does work with the Web Audio API, it doesn't support the Web Audio API's OfflineAudioContext. Instead, we reimplement a little bit of SoundTouchJS's internal logic in order to write timestretched audio to a new AudioBuffer, whose size has been scaled by a factor of the provided `Tempo` parameter.
+The approach is a bit different than previous plugins, since although SoundTouchJS does work with the Web Audio API, it doesn't support the Web Audio API's OfflineAudioContext. Instead, we reimplement a little bit of SoundTouchJS's internal logic in order to write timestretched audio to a new AudioBuffer, whose size has been scaled by a factor of the provided `tempo` parameter.
 
 #### Finding and embedding the third-party source code
 

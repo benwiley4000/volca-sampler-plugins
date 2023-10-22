@@ -11,12 +11,14 @@
  */
 
 samplePlugin.params = {
-  Rate: {
+  rate: {
+    label: "Rate",
     value: 1.5,
     min: 0.01,
     max: 8,
   },
-  Depth: {
+  depth: {
+    label: "Depth",
     value: 0.5,
     min: 0,
     max: 1,
@@ -27,8 +29,8 @@ samplePlugin.params = {
  * @param {AudioBuffer} audioBuffer
  */
 function samplePlugin(audioBuffer) {
-  const rate = samplePlugin.params.Rate.value;
-  const depth = samplePlugin.params.Depth.value;
+  const rate = samplePlugin.params.rate.value;
+  const depth = samplePlugin.params.depth.value;
 
   const { numberOfChannels, sampleRate, length } = audioBuffer;
 

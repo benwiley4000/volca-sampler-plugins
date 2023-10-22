@@ -8,22 +8,26 @@
  */
 
 samplePlugin.params = {
-  "Delay time": {
+  delayTime: {
+    label: "Delay time",
     value: 0.1,
     min: 0.01,
     max: 1,
   },
-  Level: {
+  level: {
+    label: "Level",
     value: 0.5,
     min: 0,
     max: 1,
   },
-  Feedback: {
+  feedback: {
+    label: "Feedback",
     value: 0.2,
     min: 0,
     max: 1.2,
   },
-  "Tail time": {
+  tailTime: {
+    label: "Tail time",
     value: 0.1,
     min: 0,
     max: 3,
@@ -34,10 +38,10 @@ samplePlugin.params = {
  * @param {AudioBuffer} audioBuffer
  */
 function samplePlugin(audioBuffer) {
-  const delayTime = samplePlugin.params["Delay time"].value;
-  const level = samplePlugin.params.Level.value;
-  const feedback = samplePlugin.params.Feedback.value;
-  const tailTime = samplePlugin.params["Tail time"].value;
+  const delayTime = samplePlugin.params.delayTime.value;
+  const level = samplePlugin.params.level.value;
+  const feedback = samplePlugin.params.feedback.value;
+  const tailTime = samplePlugin.params.tailTime.value;
   if (level === 0 && tailTime === 0) {
     // same as if bypassed
     return audioBuffer;

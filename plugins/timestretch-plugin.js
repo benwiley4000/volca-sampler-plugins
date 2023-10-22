@@ -11,7 +11,8 @@
  */
 
 samplePlugin.params = {
-  Tempo: {
+  tempo: {
+    label: "Tempo",
     value: 1,
     min: 0.5,
     max: 2,
@@ -22,7 +23,7 @@ samplePlugin.params = {
  * @param {AudioBuffer} audioBuffer
  */
 function samplePlugin(audioBuffer) {
-  const tempo = samplePlugin.params.Tempo.value;
+  const tempo = samplePlugin.params.tempo.value;
   if (tempo === 1) {
     // same as if bypassed
     return audioBuffer;

@@ -8,7 +8,8 @@
  */
 
 samplePlugin.params = {
-  Gain: {
+  gain: {
+    label: "Gain",
     value: 1,
     min: 0.1,
     max: 5,
@@ -19,7 +20,7 @@ samplePlugin.params = {
  * @param {AudioBuffer} audioBuffer
  */
 function samplePlugin(audioBuffer) {
-  const gain = samplePlugin.params.Gain.value;
+  const gain = samplePlugin.params.gain.value;
   if (gain === 1) {
     // same as if bypassed
     return audioBuffer;

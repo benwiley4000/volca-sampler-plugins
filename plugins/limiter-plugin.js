@@ -8,7 +8,8 @@
  */
 
 samplePlugin.params = {
-  "Gain reduction": {
+  gainReduction: {
+    label: "Gain reduction",
     value: 3,
     min: 0,
     max: 100,
@@ -19,7 +20,7 @@ samplePlugin.params = {
  * @param {AudioBuffer} audioBuffer
  */
 function samplePlugin(audioBuffer) {
-  const gainReduction = samplePlugin.params["Gain reduction"].value;
+  const gainReduction = samplePlugin.params.gainReduction.value;
 
   const { numberOfChannels, sampleRate, length } = audioBuffer;
 
