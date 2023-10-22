@@ -2,16 +2,16 @@
  * TIMESTRETCH PLUGIN for Volca Sampler
  *
  * Created by Ben Wiley 2023
- * 
+ *
  * MIT License:
  * https://github.com/benwiley4000/volca-sampler-plugins/blob/master/LICENSE
- * 
+ *
  * SoundTouchJS is LGPL licensed:
  * https://github.com/cutterbl/SoundTouchJS/blob/master/LICENSE
  */
 
 samplePlugin.params = {
-  "Stretch factor": {
+  Tempo: {
     value: 1,
     min: 0.5,
     max: 2,
@@ -22,8 +22,8 @@ samplePlugin.params = {
  * @param {AudioBuffer} audioBuffer
  */
 function samplePlugin(audioBuffer) {
-  const stretchFactor = samplePlugin.params["Stretch factor"].value;
-  if (stretchFactor === 1) {
+  const tempo = samplePlugin.params.Tempo.value;
+  if (tempo === 1) {
     // same as if bypassed
     return audioBuffer;
   }
@@ -33,10 +33,10 @@ function samplePlugin(audioBuffer) {
   const newAudioBuffer = new AudioBuffer({
     numberOfChannels,
     sampleRate,
-    length: Math.floor(length / stretchFactor),
+    length: Math.floor(length / tempo),
   });
 
-  writeTimestretchedAudio(audioBuffer, newAudioBuffer, stretchFactor);
+  writeTimestretchedAudio(audioBuffer, newAudioBuffer, tempo);
 
   return newAudioBuffer;
 }
@@ -68,16 +68,16 @@ const extraLongAudioBuffer = new AudioBuffer({
  * Use SoundTouchJS to write a timestretched copy to destBuffer
  * @param {AudioBuffer} srcBuffer
  * @param {AudioBuffer} destBuffer
- * @param {number} stretchFactor
+ * @param {number} tempo
  */
-function writeTimestretchedAudio(srcBuffer, destBuffer, stretchFactor) {
+function writeTimestretchedAudio(srcBuffer, destBuffer, tempo) {
   extraLongAudioBuffer.copyToChannel(srcBuffer.getChannelData(0), 0);
   const source = new WebAudioBufferSource(extraLongAudioBuffer);
 
   const channelData = destBuffer.getChannelData(0);
 
   const soundTouch = new SoundTouch();
-  soundTouch.tempo = stretchFactor;
+  soundTouch.tempo = tempo;
 
   const filter = new SimpleFilter(source, soundTouch);
 

@@ -273,7 +273,7 @@ One audio effect that really isn't simple to implement using just the tools give
 
 Lucky for us, there's a library called [SoundTouchJS](https://github.com/cutterbl/SoundTouchJS) (itself based on the [SoundTouch C++ library](https://www.surina.net/soundtouch/)) which implements time stretching in JavaScript, and which is the basis for our Timestretch plugin.
 
-The approach is a bit different than previous plugins, since although SoundTouchJS does work with the Web Audio API, it doesn't support the Web Audio API's OfflineAudioContext. Instead, we reimplement a little bit of SoundTouchJS's internal logic in order to write timestretched audio to a new AudioBuffer, whose size has been scaled by a factor of the provided "Stretch factor" parameter.
+The approach is a bit different than previous plugins, since although SoundTouchJS does work with the Web Audio API, it doesn't support the Web Audio API's OfflineAudioContext. Instead, we reimplement a little bit of SoundTouchJS's internal logic in order to write timestretched audio to a new AudioBuffer, whose size has been scaled by a factor of the provided `Tempo` parameter.
 
 #### Finding and embedding the third-party source code
 
