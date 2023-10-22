@@ -1,6 +1,15 @@
 # volca-sampler-plugins
 
-This repository contains a handful of plugins that you can use with [Volca Sampler](https://github.com/benwiley4000/volca-sampler). They're also meant to serve as examples to help you write your own plugins. Each of the included plugins is briefly explained below.
+This repository contains a handful of plugins that you can use with [Volca Sampler](https://github.com/benwiley4000/volca-sampler). They're also meant to serve as examples to help you write your own plugins. They are:
+
+- [delay-plugin.js](plugins/delay-plugin.js)
+- [gain-plugin.js](plugins/gain-plugin.js)
+- [limiter-plugin.js](plugins/limiter-plugin.js)
+- [lowpass-filter-plugin.js](plugins/lowpass-filter-plugin.js)
+- [phaser-plugin.js](plugins/phaser-plugin.js)
+- [timestretch-plugin.js](plugins/timestretch-plugin.js)
+
+Each of these plugins is briefly explained below.
 
 ## Table of contents
 
