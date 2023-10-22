@@ -269,7 +269,7 @@ Some of this code uses the [`AudioNode`](https://developer.mozilla.org/en-US/doc
 
 [Tuna.js](https://github.com/Theodeus/tuna) is a JavaScript library that includes more than a dozen configurable AudioNode effects, including overdrive, reverb, compression, tremolo, a Moog-style filter (in case you don't like the sound of the stock Web Audio filter), and more.
 
-As an example, we have a Phaser plugin which accepts `rate` and `depth` parameters. It looks a lot like the Low-pass filter and Limiter plugins, but instead of including a stock Web Audio node, it uses a Phaser node from Tuna.js:
+As an example, we have a Phaser plugin which accepts `rate` and `depth` parameters. It looks a lot like the Low-pass filter and Limiter plugins, but instead of including a stock Web Audio node, it uses a `Phaser` node from Tuna.js:
 
 ```js
 const tuna = new Tuna(audioContext);
