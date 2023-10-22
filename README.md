@@ -38,7 +38,7 @@ function samplePlugin(audioBuffer) {
 }
 ```
 
-Plugins run in a secure iframe context that has access to useful browser APIs like the Web Audio API, but doesn't have network access, nor access to any of the data used by Volca Sampler, except for copies of whatever data Volca Sampler chooses to send it. This means you can share your plugin with other volca sample owners, who can confidentally try out your plugin without necessarily understanding everything it's doing.
+Plugins run in a secure iframe context that has access to useful browser APIs like the Web Audio API, but doesn't have network access, nor access to any of the data used by Volca Sampler, except for copies of whatever data Volca Sampler chooses to send it. This means you can share your plugin with other volca sample owners, who can confidently try out your plugin without necessarily understanding everything it's doing.
 
 Read on to see some examples of plugins you can write.
 
@@ -90,7 +90,7 @@ You can see that our plugin is first reading the `value` from its `gain` paramet
 const gain = samplePlugin.params.gain.value;
 ```
 
-After that, we make sure we actually need to perform any work, since a value of `1` won't change anything. In that case we just return the Audio Buffer unchanged. (This step isn't required for every plugin, but might save some processing time on a large multiple transfer to the volca sample.): 
+After that, we make sure we actually need to perform any work, since a value of `1` won't change anything. In that case we just return the AudioBuffer unchanged. (This step isn't required for every plugin, but might save some processing time on a large multiple transfer to the volca sample.): 
 
 ```js
 if (gain === 1) {
@@ -99,7 +99,7 @@ if (gain === 1) {
 }
 ```
 
-It's worth knowing that every sample in Volca Sampler is mono-channel, even if it was imported or recorded in stereo. So in order to get all the data we need to transform, we just need to get channel `0` (the first and only audio channel) from our Audio Buffer:
+It's worth knowing that every sample in Volca Sampler is mono-channel, even if it was imported or recorded in stereo. So in order to get all the data we need to transform, we just need to get channel `0` (the first and only audio channel) from our AudioBuffer:
 
 ```js
 const channelData = audioBuffer.getChannelData(0);
