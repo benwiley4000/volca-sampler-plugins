@@ -279,7 +279,7 @@ The approach is a bit different than previous plugins, since although SoundTouch
 
 As mentioned, finding a copy of SoundTouchJS to embed in the browser wasn't the simplest task. Many JavaScript GitHub repositories only include the source code, which sometimes is, but isn't always a copy of the code that you can easily copy and paste into a web browser. Often it's split into multiple files, or includes non-browser helper code that will be removed during a compilation step.
 
-To find a distributable copy of SoundTouchJS, the first step to find the name of its [npm package](https://www.npmjs.com/) (npm is the de facto code distribution service for JavaScript). The name of SoundTouchJS's package is [`soundtouchjs`](https://www.npmjs.com/package/soundtouchjs), as we can [see in its README.md file on GitHub](https://github.com/cutterbl/SoundTouchJS#installation).
+To find a distributable copy of SoundTouchJS, the first step is to find the name of its [npm package](https://www.npmjs.com/) (npm is the de facto code distribution service for JavaScript). The name of SoundTouchJS's package is [`soundtouchjs`](https://www.npmjs.com/package/soundtouchjs), as we can [see in its README.md file on GitHub](https://github.com/cutterbl/SoundTouchJS#installation).
 
 With that information in hand, one way to get the distributable code is to download it with the `npm` command-line tool, but the easier way is to use [unpkg](https://unpkg.com/), a web service which allows you to browse the contents of npm packages without downloading them.
 
