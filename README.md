@@ -181,7 +181,7 @@ However, in some cases you might find the decrease in volume introduced by Norma
 
 One solution is to use a [limiter](https://en.wikipedia.org/wiki/Limiter), an extreme type of compression whose job is to just turn down the volume on the loudest stuff without affecting anything else.
 
-If you take a look at the source code, you'll see it's almost identical to `lowpass-filter-plugin.js`. What is different is the parameters (we have only one, called "Gain reduction"), and that instead of a BiquadFilterNode, we use a `DynamicsCompressorNode`:
+If you take a look at the source code, you'll see it's almost identical to `lowpass-filter-plugin.js`. What is different is the parameters (we have only one, called "Gain reduction"), and that instead of a BiquadFilterNode, we use a [`DynamicsCompressorNode`](https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode):
 
 ```js
 const limiter = audioContext.createDynamicsCompressor();
@@ -287,4 +287,4 @@ The way it works is that you visit `https://unpkg.com/[name of package]/` in a w
 
 For SoundTouchJS, [this is that file](https://unpkg.com/browse/soundtouchjs@0.1.30/dist/soundtouch.js). But there is a problem, which is that the line at the very end, starting with `export { AbstractFifoSamplePipe...`, will not run in the context of the Volca Sampler plugin iframe. Long story, but for the uninitiated, this is code related to JavaScript modules, and Volca Sampler plugins are not JavaScript modules.
 
-The solution is easy though. We just to copy all of the code in this file except for the last line, which we don't need, and include it in our plugin. In order to make the code small and take up less space, we can run it through an online JavaScript minification service like [UglifyJS Online](https://skalman.github.io/UglifyJS-online/).
+The solution is easy though. We just need to copy all of the code in this file except for the last line, which we don't need, and include it in our plugin. In order to make the code small and take up less space, we can run it through an online JavaScript minification service like [UglifyJS Online](https://skalman.github.io/UglifyJS-online/).
