@@ -127,7 +127,7 @@ And that's it!
 
 [Source code](plugins/10-percent-silence-plugin.js)
 
-This plugin looks a bit like the Gain plugin, but instead of tweaking the sample contents, this plugin just extends the end of the sample so the last 10% of it is silent - bypassing the volca sample's limitation that a sample start point cannot exceed 90%. This is useful for slicing up breakbeats, as shown in [this video from Chris Lody](https://www.youtube.com/watch?v=ci_ReYDKUfI).
+This plugin looks a bit like the Gain plugin, but instead of tweaking the sample contents, it extends the end of the sample so the last 10% of it is silent - bypassing the volca sample's limitation that a sample start point cannot exceed 90%. This is useful for slicing up breakbeats, as shown in [this video from Chris Lody](https://www.youtube.com/watch?v=ci_ReYDKUfI).
 
 You might notice we don't have any params - we don't really need any, although you could add a param to adjust the amount of silence, if you wanted.
 
