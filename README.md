@@ -8,6 +8,7 @@ This repository contains a handful of plugins that you can use with [Volca Sampl
 - [lowpass-filter-plugin.js](plugins/lowpass-filter-plugin.js)
 - [phaser-plugin.js](plugins/phaser-plugin.js)
 - [timestretch-plugin.js](plugins/timestretch-plugin.js)
+- [10-percent-silence-plugin.js](plugins/10-percent-silence-plugin.js)
 
 Each of these plugins is briefly explained below.
 
@@ -16,6 +17,7 @@ Each of these plugins is briefly explained below.
  * [What is a Volca Sampler plugin?](#what-is-a-volca-sampler-plugin)
  * [Getting started with plugins](#getting-started-with-plugins)
     + [gain-plugin.js](#gain-pluginjs)
+    + [10-percent-silence-plugin.js](#10-percent-silence-plugin.js)
  * [Leveling up - using the Web Audio API](#leveling-up---using-the-web-audio-api)
     + [lowpass-filter-plugin.js](#lowpass-filter-pluginjs)
     + [limiter-plugin.js](#limiter-pluginjs)
@@ -121,9 +123,35 @@ return audioBuffer;
 
 And that's it!
 
+### 10-percent-silence-plugin.js
+
+[Source code](plugins/10-percent-silence-plugin.js)
+
+This plugin looks a bit like the Gain plugin, but instead of tweaking the sample contents, this plugin just extends the end of the sample so the last 10% of it is silent - bypassing the volca sample's limitation that a sample start point cannot exceed 90%. This is useful for slicing up breakbeats, as shown in [this video from Chris Lody](https://www.youtube.com/watch?v=ci_ReYDKUfI).
+
+You might notice we don't have any params - we don't really need any, although you could add a param to adjust the amount of silence, if you wanted.
+
+Because we're changing the length of the sample, we can't re-use the same ArrayBuffer like we did for the Gain plugin. So we create a new one that adds 10% of extra time:
+
+```js
+const newBufferLength = Math.ceil((length / 9) * 10);
+const newAudioBuffer = new AudioBuffer({
+  length: newBufferLength,
+  sampleRate,
+  numberOfChannels,
+});
+```
+
+Next, all we need to do is copy the unmodified audio data from the old AudioBuffer to the new one (leaving silence at the end), and return it:
+
+```js
+newAudioBuffer.copyToChannel(audioBuffer.getChannelData(0), 0);
+return newAudioBuffer;
+```
+
 ## Leveling up - using the Web Audio API
 
-To do more than just adjust sample volume, most of our plugins will rely on a powerful audio toolkit included in all modern web browsers, called the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API). This API allows you to set up an audio effects chain with effects like delay, compression, filters, etc., kind of like you would in a DAW or on a guitar pedalboard.
+To do more than just adjust sample volume or add silence to the end, most of our plugins will rely on a powerful audio toolkit included in all modern web browsers, called the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API). This API allows you to set up an audio effects chain with effects like delay, compression, filters, etc., kind of like you would in a DAW or on a guitar pedalboard.
 
 The Web Audio API is normally used to process live audio playback in the browser, but it also offers a feature called [`OfflineAudioContext`](https://developer.mozilla.org/en-US/docs/Web/API/OfflineAudioContext), which allows you to write the output of your effects chain directly to an AudioBuffer - which is exactly the type of data our plugin needs to return!
 
