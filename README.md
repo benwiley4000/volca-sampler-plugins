@@ -8,6 +8,7 @@ This repository contains a handful of plugins that you can use with [Volca Sampl
 - [lowpass-filter-plugin.js](plugins/lowpass-filter-plugin.js)
 - [phaser-plugin.js](plugins/phaser-plugin.js)
 - [timestretch-plugin.js](plugins/timestretch-plugin.js)
+- [trim-plugin.js](plugins/trim-plugin.js)
 - [10-percent-silence-plugin.js](plugins/10-percent-silence-plugin.js)
 
 Each of these plugins is briefly explained below.
@@ -18,6 +19,7 @@ Each of these plugins is briefly explained below.
  * [Getting started with plugins](#getting-started-with-plugins)
     + [gain-plugin.js](#gain-pluginjs)
     + [10-percent-silence-plugin.js](#10-percent-silence-plugin.js)
+    + [trim-plugin.js](#trim-plugin.js)
  * [Leveling up - using the Web Audio API](#leveling-up---using-the-web-audio-api)
     + [lowpass-filter-plugin.js](#lowpass-filter-pluginjs)
     + [limiter-plugin.js](#limiter-pluginjs)
@@ -148,6 +150,14 @@ Next, all we need to do is copy the unmodified audio data from the old AudioBuff
 newAudioBuffer.copyToChannel(audioBuffer.getChannelData(0), 0);
 return newAudioBuffer;
 ```
+
+### trim-plugin.js
+
+[Source code](plugins/trim-plugin.js)
+
+Volca Sampler has sample trimming built-in, applied to the sample after plugin processing. But if you want to trim your sample *before* applying another effect (like the 10-percent silence plugin), another plugin can do that for you.
+
+Trimming can be thought of as the opposite of adding extra length, and so it uses a similar technique as we did for the 10-percent silence plugin, in that it copies the audio data to a new AudioBuffer that we return. Rather than copying the full data, we create a trimmed view from percentage-based `trimStart` and `trimEnd` params, which we then copy to the output AudioBuffer.
 
 ## Leveling up - using the Web Audio API
 
