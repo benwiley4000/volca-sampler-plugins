@@ -4,7 +4,7 @@
  * Created by Ben Wiley 2023
  *
  * Inspired by Chris Lody's technique for allowing up to 100% sample start time
- * (instead of 90%) by making the latest 10% of the transferred sample silent:
+ * (instead of 90%) by making the last 10% of the transferred sample silent:
  * https://www.youtube.com/watch?v=ci_ReYDKUfI
  *
  * MIT License:
