@@ -9,7 +9,7 @@
 
 samplePlugin.params = {
   cutoffFrequency: {
-    label: "Cutoff frequency",
+    label: "Cutoff frequency (Hz)",
     value: 1000,
     min: 30,
     max: 20000,

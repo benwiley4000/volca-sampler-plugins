@@ -9,7 +9,7 @@
 
 samplePlugin.params = {
   delayTime: {
-    label: "Delay time",
+    label: "Delay time (seconds)",
     value: 0.1,
     min: 0.01,
     max: 1,
@@ -27,7 +27,7 @@ samplePlugin.params = {
     max: 1.2,
   },
   tailTime: {
-    label: "Tail time",
+    label: "Tail time (seconds)",
     value: 0.1,
     min: 0,
     max: 3,
