@@ -229,16 +229,16 @@ However, in some cases you might find the decrease in volume introduced by Norma
 
 One solution is to use a [limiter](https://en.wikipedia.org/wiki/Limiter), an extreme type of compression whose job is to just turn down the volume on the loudest stuff without affecting anything else.
 
-If you take a look at the source code, you'll see it's almost identical to `lowpass-filter-plugin.js`. What is different is the parameters (we have only one, called `gainReduction`), and that instead of a BiquadFilterNode, we use a [`DynamicsCompressorNode`](https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode):
+If you take a look at the source code, you'll see it's almost identical to `lowpass-filter-plugin.js`. What is different is the parameters (`gainReduction` and `attack`), and that instead of a BiquadFilterNode, we use a [`DynamicsCompressorNode`](https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode):
 
 ```js
 const limiter = audioContext.createDynamicsCompressor();
 limiter.ratio.value = 20;
-limiter.attack.value = 0;
+limiter.attack.value = attack;
 limiter.threshold.value = 0 - gainReduction;
 ```
 
-Note that `20` is the maximum compression ratio available, and `0` is the minimum attack available. This is what turns our compressor into a limiter.
+Note that `20` is the maximum compression ratio available. This is what turns our compressor into a limiter.
 
 ## More complex audio processing
 

@@ -9,10 +9,16 @@
 
 samplePlugin.params = {
   gainReduction: {
-    label: "Gain reduction",
+    label: "Gain reduction (dB)",
     value: 3,
     min: 0,
     max: 100,
+  },
+  attack: {
+    label: "Attack time (seconds)",
+    value: 0.01,
+    min: 0,
+    max: 0.3,
   },
 };
 
@@ -21,6 +27,7 @@ samplePlugin.params = {
  */
 function samplePlugin(audioBuffer) {
   const gainReduction = samplePlugin.params.gainReduction.value;
+  const attack = samplePlugin.params.attack.value;
 
   const { numberOfChannels, sampleRate, length } = audioBuffer;
 
@@ -35,7 +42,7 @@ function samplePlugin(audioBuffer) {
 
   const limiter = audioContext.createDynamicsCompressor();
   limiter.ratio.value = 20;
-  limiter.attack.value = 0;
+  limiter.attack.value = attack;
   limiter.threshold.value = 0 - gainReduction;
 
   bufferSource.connect(limiter);
