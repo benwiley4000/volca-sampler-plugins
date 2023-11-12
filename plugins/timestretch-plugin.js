@@ -72,6 +72,12 @@ const extraLongAudioBuffer = new AudioBuffer({
  * @param {number} tempo
  */
 function writeTimestretchedAudio(srcBuffer, destBuffer, tempo) {
+  // dest buffer is currently silent so copy that to the area we
+  // will write, so we don't carry over artifacts from previous
+  // operations.
+  extraLongAudioBuffer.copyToChannel(destBuffer.getChannelData(0), 0);
+
+  // now copy the source audio
   extraLongAudioBuffer.copyToChannel(srcBuffer.getChannelData(0), 0);
   const source = new WebAudioBufferSource(extraLongAudioBuffer);
 
