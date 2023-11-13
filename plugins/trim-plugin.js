@@ -43,7 +43,7 @@ function samplePlugin(audioBuffer) {
 
   const sourceChannelData = audioBuffer.getChannelData(0);
   const trimmedView = new Float32Array(
-    sourceChannelData,
+    sourceChannelData.buffer,
     // 32-bit = 4 bytes
     trimStartFrames * 4,
     newBufferLength
